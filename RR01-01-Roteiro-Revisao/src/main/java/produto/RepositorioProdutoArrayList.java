@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Adalberto
  */
-public class RepositorioProdutoArrayList {
+public class RepositorioProdutoArrayList implements RepositorioProduto {
 
 	/**
 	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
@@ -64,6 +64,7 @@ public class RepositorioProdutoArrayList {
 	 */
 	public void inserir(Produto produto) {
     produtos.add(produto);
+    index++;
 	}
 
 	/**
@@ -91,6 +92,7 @@ public class RepositorioProdutoArrayList {
     for (int i = 0; i < produtos.size(); i++) {
       if (produtos.get(i).getCodigo() == codigo) {
         produtos.remove(i);
+        index--;
       }
     }
 	}
