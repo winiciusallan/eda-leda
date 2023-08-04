@@ -15,107 +15,107 @@ package produto;
  *
  */
 public class RepositorioProdutoNaoPerecivelArray {
-	/**
-	 * A estrutura (array) onde os produtos sao mantidos.
-	 */
-	private ProdutoNaoPerecivel[] produtos;
+  /**
+   * A estrutura (array) onde os produtos sao mantidos.
+   */
+  private ProdutoNaoPerecivel[] produtos;
 
-	/**
-	 * A posicao do ultimo elemento inserido no array de produtos. o valor
-	 * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
-	 */
-	private int index = -1;
+  /**
+   * A posicao do ultimo elemento inserido no array de produtos. o valor
+   * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
+   */
+  private int index = -1;
 
-	public RepositorioProdutoNaoPerecivelArray(int size) {
-		super();
-		this.produtos = new ProdutoNaoPerecivel[size];
-	}
+  public RepositorioProdutoNaoPerecivelArray(int size) {
+    super();
+    this.produtos = new ProdutoNaoPerecivel[size];
+  }
 
-	/**
-	 * Recebe o codigo do produto e devolve o indice desse produto no array ou
-	 * -1 caso ele nao se encontre no array. Esse método é util apenas na
-	 * implementacao com arrays por questoes de localizacao. Outras classes que
-	 * utilizam outras estruturas internas podem nao precisar desse método.
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	private int procurarIndice(int codigo) {
+  /**
+   * Recebe o codigo do produto e devolve o indice desse produto no array ou
+   * -1 caso ele nao se encontre no array. Esse método é util apenas na
+   * implementacao com arrays por questoes de localizacao. Outras classes que
+   * utilizam outras estruturas internas podem nao precisar desse método.
+   * 
+   * @param codigo
+   * @return
+   */
+  private int procurarIndice(int codigo) {
     if (index == -1) { return -1; }
     for (int i = 0; i < produtos.length; i++) {
       if (produtos[i].getCodigo() == codigo) { return i; }
     }
     return -1;
-	}
+  }
 
-	/**
-	 * Recebe o codigo e diz se tem produto com esse codigo armazenado
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	public boolean existe(int codigo) {
+  /**
+   * Recebe o codigo e diz se tem produto com esse codigo armazenado
+   * 
+   * @param codigo
+   * @return
+   */
+  public boolean existe(int codigo) {
     if (index == -1) { return false; }
     for (int i = 0; i < produtos.length; i++) {
       if (produtos[i].getCodigo() == codigo) { return true; }
     }
     return false;
-	}
+  }
 
-	/**
-	 * Insere um novo produto (sem se preocupar com duplicatas)
-	 */
-	public void inserir(ProdutoNaoPerecivel produto) {
+  /**
+   * Insere um novo produto (sem se preocupar com duplicatas)
+   */
+  public void inserir(ProdutoNaoPerecivel produto) {
     if (produtos.length - 1 == index) { return; }
     produtos[index + 1] = produto;
     index++;
-	}
+  }
 
-	/**
-	 * Atualiza um produto armazenado ou retorna um erro caso o produto nao
-	 * esteja no array. Note que, para localizacao, o código do produto será
-	 * utilizado.
-	 */
-	public void atualizar(ProdutoNaoPerecivel produto) {
+  /**
+   * Atualiza um produto armazenado ou retorna um erro caso o produto nao
+   * esteja no array. Note que, para localizacao, o código do produto será
+   * utilizado.
+   */
+  public void atualizar(ProdutoNaoPerecivel produto) {
     if (index == -1) { throw new RuntimeException(); }
     for (int i = 0; i < produtos.length; i++) {
       if (produtos[i].getCodigo() == produto.getCodigo()) {
-        produtos[i] = produto;
+	produtos[i] = produto;
       }
     }
-	}
+  }
 
-	/**
-	 * Remove produto com determinado codigo, se existir, ou entao retorna um
-	 * erro, caso contrário. Note que a remoção NÃO pode deixar "buracos" no
-	 * array.
-	 * 
-	 * @param codigo
-	 */
-	public void remover(int codigo) {
+  /**
+   * Remove produto com determinado codigo, se existir, ou entao retorna um
+   * erro, caso contrário. Note que a remoção NÃO pode deixar "buracos" no
+   * array.
+   * 
+   * @param codigo
+   */
+  public void remover(int codigo) {
     if (index == -1) { return; }
     for (int i = 0; i < produtos.length; i++) {
       if (produtos[i].getCodigo() == codigo) {
-        produtos[i] = produtos[index];
-        produtos[index] = null;
-        index--;
+	produtos[i] = produtos[index];
+	produtos[index] = null;
+	index--;
       }
     }
-	}
+  }
 
-	/**
-	 * Retorna um produto com determinado codigo ou entao um erro, caso o
-	 * produto nao esteja armazenado
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	public ProdutoNaoPerecivel procurar(int codigo) {
+  /**
+   * Retorna um produto com determinado codigo ou entao um erro, caso o
+   * produto nao esteja armazenado
+   * 
+   * @param codigo
+   * @return
+   */
+  public ProdutoNaoPerecivel procurar(int codigo) {
     if (index == -1) { return null; }
     for (int i = 0; i < produtos.length; i++) {
       if (produtos[i].getCodigo() == codigo) { return produtos[i]; }
     }
     return null;
-	}
+  }
 
 }
