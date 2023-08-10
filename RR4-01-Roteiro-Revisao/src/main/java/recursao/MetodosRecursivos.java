@@ -1,5 +1,7 @@
 package recursao;
 
+/* @author Winicius Allan */
+
 public class MetodosRecursivos {
 
 	public int calcularSomaArray(int[] array, int index){
@@ -38,19 +40,18 @@ public class MetodosRecursivos {
 	}
 
 	public long potenciaDe2(int expoente) {
-		int result = 1;
-		// TODO IMPLEMENTE (USANDO RECURSAO) O CODIGO PARA PRODUZIR A N-ESIMA
-		// POTENCIA
-		// DE 2
-		return result;
+		int result = 2;
+		if (expoente == 0) { return 1; }
+		return result * potenciaDe2(expoente - 1);
 	}
 
+	// Dúvida caso base.
 	public double progressaoAritmetica(double termoInicial, double razao, int n) {
-		double result = 0;
-		// TODO IMPLEMENTE SEU CODIGO (USANDO RECURSAO) DE ENCONTRAR O n-ESIMO
-		// TERMO
-		// DA PROGRESSAO ARITMETICA, DADO O TERMO INICIAL E A RAZAO
-		// VOCE NAO PODE USAR A FORMULA QUE CALCULA O N-ESIMO TERMO. DEVE USAR RECURSAO
+		double result = termoInicial;
+		if (n == 1) { 
+			return result;
+		}
+		result = razao + progressaoAritmetica(termoInicial, razao, n - 1);
 		return result;
 	}
 
@@ -62,6 +63,4 @@ public class MetodosRecursivos {
 		// VOCE NAO PODE USAR A FORMULA QUE CALCULA O N-ESIMO TERMO. DEVE USAR RECURSAO
 		return result;
 	}
-	
-	
 }
