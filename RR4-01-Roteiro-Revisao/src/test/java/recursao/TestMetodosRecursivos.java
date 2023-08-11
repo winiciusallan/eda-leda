@@ -40,6 +40,6 @@ public class TestMetodosRecursivos {
 
 	@Test
 	public void progressaoAritmetica() {
-		assertTrue(10 == metodosRecursivos.progressaoAritmetica(0, 2, 5));
+		assertEquals(8, (int) metodosRecursivos.progressaoAritmetica(0, 2, 5));
 	}
 }

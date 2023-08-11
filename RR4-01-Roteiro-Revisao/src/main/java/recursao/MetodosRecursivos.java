@@ -47,12 +47,10 @@ public class MetodosRecursivos {
 
 	// Dúvida caso base.
 	public double progressaoAritmetica(double termoInicial, double razao, int n) {
-		double result = termoInicial;
 		if (n == 1) { 
-			return result;
+			return termoInicial;		
 		}
-		result = razao + progressaoAritmetica(termoInicial, razao, n - 1);
-		return result;
+		return razao + progressaoAritmetica(termoInicial, razao, n - 1);
 	}
 
 	public double progressaoGeometrica(double termoInicial, double razao, int n) {
