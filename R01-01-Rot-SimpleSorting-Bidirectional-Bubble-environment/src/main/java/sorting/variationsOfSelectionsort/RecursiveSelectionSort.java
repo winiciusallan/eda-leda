@@ -24,24 +24,27 @@ public class RecursiveSelectionSort<T extends Comparable<T>> extends
 			// 	}
 			// }
 			// Util.swap(array, leftIndex, indiceMenor);
-      int indiceMenor = selection(array, leftIndex, rightIndex);
-			Util.swap(array, leftIndex, indiceMenor);
 			if (leftIndex < rightIndex) {
+				int indiceMenor = selection(array, leftIndex, rightIndex, leftIndex);
+				Util.swap(array, leftIndex, indiceMenor);
 				sort(array, leftIndex + 1, rightIndex);
 			}
 		}
 	}
 
-  public int selection(T[] array, int left, int right) {
-    int indiceMenor = left;
-    if (left < right) {
-      if (array[left + 1].compareTo(array[indiceMenor]) < 0) {
-        indiceMenor = left + 1;
-      } else {
-        selection(array, left + 1, right);
-      }
-    }
-    return indiceMenor;
-  }
-
+	// É importante que o método auxiliar armazene o menor índice para que as chamadas guardem esse valor.
+	public int selection(T[] array, int left, int right, int menorIndice) {
+		if (left == right) { // Caso base. left (ponteiro de iteração) chegar no fim do array.
+			if (array[left].compareTo(array[menorIndice]) < 0) {
+				return left;
+			}
+			return menorIndice;
+		}
+		
+		if (array[left + 1].compareTo(array[menorIndice]) < 0) { // Passo recursivo. Coleta do menor índice
+			menorIndice = left + 1;
+		}
+		return selection(array, left + 1, right, menorIndice);
+	}
 }
+
