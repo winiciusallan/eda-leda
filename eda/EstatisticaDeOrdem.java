@@ -6,7 +6,6 @@ class EstatisticaDeOrdem {
 
         int[] v = converteEntrada(input.nextLine().split(" "));
 
-
         System.out.println(partition(v, 0, v.length - 1));
     }   
 
