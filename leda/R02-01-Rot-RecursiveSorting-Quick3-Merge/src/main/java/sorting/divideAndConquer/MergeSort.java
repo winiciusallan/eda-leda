@@ -32,7 +32,7 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		int k = left;
 		// Merge
 		while (i <= meio && j <= right) {
-			if (helper[i].compareTo(helper[j]) < 0) {
+			if (helper[i].compareTo(helper[j]) <= 0) {
 				array[k] = helper[i];
 				i++;
 			} else {
