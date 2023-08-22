@@ -1,7 +1,6 @@
 package sorting.divideAndConquer;
 
 import sorting.AbstractSorting;
-import util.Util;
 
 /**
  * Merge sort is based on the divide-and-conquer paradigm. The algorithm
@@ -33,13 +32,10 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		// Merge
 		while (i <= meio && j <= right) {
 			if (helper[i].compareTo(helper[j]) <= 0) {
-				array[k] = helper[i];
-				i++;
+				array[k++] = helper[i++];
 			} else {
-				array[k] = helper[j];
-				j++;
+				array[k++] = helper[j++];
 			}
-			k++;
 		}
 
 		while (i <= meio) {

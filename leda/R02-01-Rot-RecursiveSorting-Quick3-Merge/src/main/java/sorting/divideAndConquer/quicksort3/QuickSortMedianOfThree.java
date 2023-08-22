@@ -1,6 +1,9 @@
 package sorting.divideAndConquer.quicksort3;
 
+import java.util.Arrays;
+
 import sorting.AbstractSorting;
+import util.Util;
 
 /**
  * A classe QuickSortMedianOfThree representa uma variação do QuickSort que
@@ -18,9 +21,42 @@ import sorting.AbstractSorting;
  */
 public class QuickSortMedianOfThree<T extends Comparable<T>> extends
 		AbstractSorting<T> {
+	// Refatorar código.
 
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (leftIndex < rightIndex) {
+			int pivot = particiona(array, leftIndex, rightIndex);
+			sort(array, leftIndex, pivot - 1);
+			sort(array, pivot + 1, rightIndex);
+		}
+	}
+
+	private int particiona(T[] v, int left, int right) {
+		// Choosing pivot with median of three
+		int pivotIndex = medianOfThree(v, left, right);
+		T pivot = v[pivotIndex];
+		Util.swap(v, left, pivotIndex);
+
+		int i = left;
+
+		for (int j = left + 1; j <= right; j++) {
+			if (v[j].compareTo(pivot) < 0) {
+				Util.swap(v, ++i, j);
+			}	
+		}
+		
+		Util.swap(v, left, i);
+		return i;
+	}
+
+	private int medianOfThree(T[] v, int left, int right) {
+		int meio = (right + left) / 2;
+
+		Comparable[] elems = {v[left], v[meio], v[right]};
+		Arrays.sort(elems);
+
+		if (elems[1] == v[left]) return left;
+		else if (elems[1] == v[meio]) return meio;
+		else return right;
 	}
 }
