@@ -33,17 +33,18 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		MERGESORT_APPLICATIONS = 0;
 		INSERTIONSORT_APPLICATIONS = 0;
+		if (!(array.length == 1) && array.length > 0 && leftIndex >= 0 && rightIndex <= array.length - 1) {
+			if (array.length > SIZE_LIMIT) {
+				if (leftIndex < rightIndex) {
+					int meio = (rightIndex + leftIndex) / 2;
+					sort(array, leftIndex, meio);
+					sort(array, meio + 1, rightIndex);		
 
-		if (array.length > SIZE_LIMIT) {
-			if (leftIndex < rightIndex) {
-				int meio = (rightIndex + leftIndex) / 2;
-				sort(array, leftIndex, meio);
-				sort(array, meio + 1, rightIndex);		
-	
-				merge(array, leftIndex, meio, rightIndex);	
+					merge(array, leftIndex, meio, rightIndex);	
+				}
+			} else {
+				insertionSort(array, leftIndex, rightIndex);
 			}
-		} else {
-			insertionSort(array, leftIndex, rightIndex);
 		}
 	}
 
@@ -64,7 +65,7 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 
 	private void merge(T[] arr, int left, int meio, int right) {
 		T[] helper = (T[]) new Comparable[arr.length];
-		for (int i = 0; i < helper.length; i++) {
+		for (int i = left; i <= right; i++) {
 			helper[i] = arr[i];
 		}
 
@@ -99,5 +100,13 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 			}
 		}
 		INSERTIONSORT_APPLICATIONS++;
+	}
+
+	public int getMergeSortAplications() {
+		return MERGESORT_APPLICATIONS;
+	}
+
+	public int getInsertionSortAplications() {
+		return INSERTIONSORT_APPLICATIONS;
 	}
 }
