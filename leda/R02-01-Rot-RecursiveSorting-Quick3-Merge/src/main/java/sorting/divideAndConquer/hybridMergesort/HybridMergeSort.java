@@ -1,6 +1,7 @@
 package sorting.divideAndConquer.hybridMergesort;
 
 import sorting.AbstractSorting;
+import util.Util;
 
 /**
  * A classe HybridMergeSort representa a implementação de uma variação do
@@ -28,9 +29,75 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 
 	protected static int MERGESORT_APPLICATIONS = 0;
 	protected static int INSERTIONSORT_APPLICATIONS = 0;
-
+	
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		MERGESORT_APPLICATIONS = 0;
+		INSERTIONSORT_APPLICATIONS = 0;
+
+		if (array.length > SIZE_LIMIT) {
+			if (leftIndex < rightIndex) {
+				int meio = (rightIndex + leftIndex) / 2;
+				sort(array, leftIndex, meio);
+				sort(array, meio + 1, rightIndex);		
+	
+				merge(array, leftIndex, meio, rightIndex);	
+			}
+		} else {
+			insertionSort(array, leftIndex, rightIndex);
+		}
+	}
+
+	// private void mergeSort(T[] arr, int left, int right) {
+	// 	if (left < right) {
+	// 		if ((right - left + 1) > SIZE_LIMIT) {
+	// 			int meio = (right + left) / 2;
+	// 			mergeSort(arr, left, meio);
+	// 			mergeSort(arr, meio + 1, right);	
+	// 			merge(arr, left, meio, right);	
+	// 			MERGESORT_APPLICATIONS++;
+	// 		} else {
+	// 			insertionSort(arr, left, right);
+	// 			INSERTIONSORT_APPLICATIONS++;
+	// 		}
+	// 	}
+	// }
+
+	private void merge(T[] arr, int left, int meio, int right) {
+		T[] helper = (T[]) new Comparable[arr.length];
+		for (int i = 0; i < helper.length; i++) {
+			helper[i] = arr[i];
+		}
+
+		int i = left;
+		int j = meio + 1;
+		int k = left;
+
+		while (i <= meio && j <= right) {
+			if (helper[i].compareTo(helper[j]) <= 0) {
+				arr[k++] = helper[i++]; 
+			} else {
+				arr[k++] = helper[j++];
+			}
+		}
+
+		while (i <= meio) {
+			arr[k++] = helper[i++];
+		}
+
+		while (j <= right) {
+			arr[k++] = helper[j++];
+		}
+		MERGESORT_APPLICATIONS++;
+	}
+
+	private void insertionSort(T[] arr, int left, int right) {
+		for (int i = left; i <= right; i++) {
+			int j = i + 1;
+			while (j > left && arr[j].compareTo(arr[j-1]) < 0) {
+				Util.swap(arr, j, j - 1);
+				j--;
+			}
+		}
+		INSERTIONSORT_APPLICATIONS++;
 	}
 }

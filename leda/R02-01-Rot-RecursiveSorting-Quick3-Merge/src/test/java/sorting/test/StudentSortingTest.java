@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.divideAndConquer.quicksort3.QuickSortMedianOfThree;
+import sorting.divideAndConquer.hybridMergesort.HybridMergeSort;
 
 public class StudentSortingTest {
 
@@ -38,7 +38,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
-		this.implementation = new QuickSortMedianOfThree();
+		this.implementation = new HybridMergeSort();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
