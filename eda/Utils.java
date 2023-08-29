@@ -21,4 +21,12 @@ public class Utils {
         }
         return output.trim();
     }
+
+    // private static Pilha createPilha(int[] v) {
+    //     Pilha output = new Pilha(v.length);
+    //     for (int i = 0; i < v.length; i++) {
+    //         output.push(v[i]);
+    //     }
+    //     return output;
+    // }
 }

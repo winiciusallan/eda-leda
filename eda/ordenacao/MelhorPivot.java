@@ -1,3 +1,4 @@
+package ordenacao;
 import java.util.Scanner;
 
 class MelhorPivot {

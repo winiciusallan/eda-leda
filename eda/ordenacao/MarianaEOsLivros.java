@@ -1,4 +1,4 @@
-import java.util.Arrays;
+package ordenacao;
 import java.util.Scanner;
 
 /* @author Winicius Allan */
