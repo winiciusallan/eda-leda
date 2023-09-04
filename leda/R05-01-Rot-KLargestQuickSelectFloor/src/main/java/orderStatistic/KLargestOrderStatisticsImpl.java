@@ -1,7 +1,5 @@
 package orderStatistic;
 
-import java.util.Arrays;
-
 import util.Util;
 
 /**
@@ -33,9 +31,13 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 
 	@Override
 	public T[] getKLargest(T[] array, int k) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-		//este metodo deve obrigatoriamente usar o orderStatistics abaixo.
+		T[] kthLargests = (T[]) new Comparable[k];
+		T kthMinor = orderStatistics(array, array.length - k);
+		int indexKthMinor = indexOf(array, kthMinor);
+
+		for (int i = 0; i < array.length; i++); {
+			kthLargests[i] = array[indexKthMinor++];
+		}
 	}
 
 	/**
@@ -50,16 +52,26 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 	 * @return
 	 */
 	public T orderStatistics(T[] array, int k){
-		int i = particionamento(array, 0, array.length - 1);
+		return orderStatistics(array, k, 0, array.length - 1);
+	}
 
-		while (i != k) {
-			if (i < k) {
-				i = particionamento(array, i, array.length - 1);
-			} else if (i > k) {
-				i = particionamento(array, 0, i - 1);
+	private T orderStatistics(T[] array, int k, int left, int right) {
+		int i = particionamento(array, left, right);
+		T result = array[i];
+
+		if (left <= right) {
+			if (i != k - 1) {
+				// if (i == k - 1)
+				if (i > k - 1) {
+					result = orderStatistics(array, k, left, i - 1);
+				}
+				else {
+					result = orderStatistics(array, k, i + 1, right);
+				}
 			}
 		}
-		return array[i];
+		
+		return result;
 	}
 
 	public int particionamento(T[] array, int left, int right) {
@@ -72,7 +84,16 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 			}
 		}
 
-		Util.swap(array, 0, i);
-		return i + 1;
+		Util.swap(array, left, i);
+		return i;
+	}
+
+	private int indexOf(T[] arr, T v) {
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].compareTo(v) == 0) {
+				return i;
+			}
+		}
+		return -1;
 	}
 }

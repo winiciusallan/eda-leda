@@ -23,5 +23,17 @@ public class TestKLargestOrderStatistics {
         Integer kth = implementation.orderStatistics(vetorPar, 3);
         assertEquals(6, (int)kth);
     }
+
+    @Test
+    public void testOrderStatisticsWithFirstKth() {
+        Integer kth = implementation.orderStatistics(vetorPar, 5);
+        assertEquals(1, (int)kth);
+    }
+
+    @Test
+    public void testOrderStatisticsWithLastKth() {
+        Integer kth = implementation.orderStatistics(vetorPar, 6);
+        assertEquals(12, (int)kth);
+    }
 }
  

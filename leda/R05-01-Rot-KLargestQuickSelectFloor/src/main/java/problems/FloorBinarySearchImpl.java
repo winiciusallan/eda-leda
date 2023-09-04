@@ -3,11 +3,7 @@ package problems;
 import util.Util;
 
 public class FloorBinarySearchImpl implements Floor {
-
-	public static void main(String[] args) {
-		Integer[] arr = new Integer[]{4, 3, 1, 2, 5, -1};
-	}
-
+	
 	@Override
 	public Integer floor(Integer[] array, Integer x) {
 		Integer floor = null;
