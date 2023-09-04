@@ -46,7 +46,7 @@ class Fila {
     }
 
     public int size() {
-        
+        return 0;
     }
 
     private boolean isEmpty() {
