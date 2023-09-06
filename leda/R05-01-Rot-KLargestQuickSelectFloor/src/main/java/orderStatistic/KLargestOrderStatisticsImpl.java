@@ -31,13 +31,18 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 
 	@Override
 	public T[] getKLargest(T[] array, int k) {
-		T[] kthLargests = (T[]) new Comparable[k];
-		T kthMinor = orderStatistics(array, array.length - k);
-		int indexKthMinor = indexOf(array, kthMinor);
+		if (array.length < k) { k = 0; }
 
-		for (int i = 0; i < array.length; i++); {
-			kthLargests[i] = array[indexKthMinor++];
+		T[] kthLargests = (T[]) new Comparable[k];
+
+		if (array.length >= k) {
+			for (int i = 0; i < kthLargests.length; i++) {
+				kthLargests[i] = orderStatistics(array, array.length - k + 1);
+				k--;
+			}
 		}
+
+		return kthLargests;
 	}
 
 	/**
@@ -56,19 +61,19 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 	}
 
 	private T orderStatistics(T[] array, int k, int left, int right) {
-		int i = particionamento(array, left, right);
-		T result = array[i];
-
+		T result = null;
+		
 		if (left <= right) {
-			if (i != k - 1) {
-				// if (i == k - 1)
-				if (i > k - 1) {
-					result = orderStatistics(array, k, left, i - 1);
-				}
+			int i = particionamento(array, left, right);
+			if (i == k - 1) {
+				result = array[i];
+			}
+			else if (i > k - 1) {
+				result = orderStatistics(array, k, left, i - 1);
+			}
 				else {
 					result = orderStatistics(array, k, i + 1, right);
 				}
-			}
 		}
 		
 		return result;
