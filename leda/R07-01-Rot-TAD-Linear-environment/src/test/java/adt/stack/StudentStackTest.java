@@ -2,9 +2,7 @@ package adt.stack;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +11,7 @@ public class StudentStackTest {
 	public Stack<Integer> stack1;
 	public Stack<Integer> stack2;
 	public Stack<Integer> stack3;
+	public Stack<Integer> emptyStack;
 
 	@Before
 	public void setUp() throws StackOverflowException {
@@ -32,9 +31,10 @@ public class StudentStackTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		stack1 = null;
-		stack2 = null;
-		stack3 = null;
+		stack1 = new StackImpl<>(10);
+		stack2 = new StackImpl<>(2);
+		stack3 = new StackImpl<>(0);
+		emptyStack = new StackImpl<>(0);
 	}
 
 	// MÉTODOS DE TESTE
@@ -66,7 +66,7 @@ public class StudentStackTest {
 
 	@Test(expected = StackOverflowException.class)
 	public void testPushComErro() throws StackOverflowException {
-		stack1.push(new Integer(5)); // levanta excecao apenas se o tamanhonao
+		stack2.push(new Integer(5)); // levanta excecao apenas se o tamanhonao
 										// permitir outra insercao
 	}
 
@@ -82,7 +82,12 @@ public class StudentStackTest {
 
 	@Test(expected = StackUnderflowException.class)
 	public void testPopComErro() throws StackUnderflowException {
-		assertEquals(new Integer(3), stack1.pop()); // levanta excecao apenas se
+		assertEquals(new Integer(3), stack3.pop()); // levanta excecao apenas se
 													// stack1 for vazia
+	}
+
+	@Test
+	public void testGetNullTop() {
+		assertEquals(null, emptyStack.top());
 	}
 }
