@@ -7,15 +7,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StudentQueueTest {
+public class StudentQueueCircularTest {
 
-	public Queue<Integer> queue1;
-	public Queue<Integer> queue2;
-	public Queue<Integer> queue3;
-	public Queue<Integer> emptyQueue;
+	public CircularQueue<Integer> queue1;
+	public CircularQueue<Integer> queue2;
+	public CircularQueue<Integer> queue3;
+	public CircularQueue<Integer> emptyQueue;
 
 	@Before
-	public void setUp() throws QueueOverflowException {
+	public void setUp() throws QueueOverflowException, QueueUnderflowException {
 
 		getImplementations();
 
@@ -28,20 +28,33 @@ public class StudentQueueTest {
 		queue2.enqueue(1);
 		queue2.enqueue(2);
 
+		queue3.enqueue(5);
+		queue3.enqueue(6);
+		queue3.enqueue(7);
+		queue3.enqueue(8);
+		queue3.enqueue(9);
+		Integer v = queue3.dequeue();
+		queue3.enqueue(v);
+
 	}
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = new QueueImpl<>(10);
-		queue2 = new QueueImpl<>(2);
-		queue3 = new QueueImpl<>(5);
-		emptyQueue = new QueueImpl<>(0);
+		queue1 = new CircularQueue<>(10);
+		queue2 = new CircularQueue<>(2);
+		queue3 = new CircularQueue<>(5);
+		emptyQueue = new CircularQueue<>(0);
 	}
 
 	// MÉTODOS DE TESTE
 	@Test
 	public void testHead() {
 		assertEquals(new Integer(1), queue1.head());
+	}
+
+	@Test
+	public void testHeadInMiddleOfQueue() {
+		assertEquals(new Integer(6), queue3.head());
 	}
 
 	@Test

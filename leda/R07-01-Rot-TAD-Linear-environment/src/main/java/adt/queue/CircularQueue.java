@@ -16,32 +16,59 @@ public class CircularQueue<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isFull()) {
+			throw new QueueOverflowException();
+		}
+
+		if (isEmpty()) {
+			head++;
+			this.array[++tail] = element;
+		} else {
+			// Linha que torna o vetor circular. O uso do modulo faz com que nosso tail circule.
+			tail = (tail + 1) % this.array.length;
+			this.array[tail] = element;
+			elements++;
+		}
+
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+		if (isEmpty()) {
+			throw new QueueUnderflowException();
+		}
+
+		if (head == tail) {
+			result = this.array[head];
+			head = -1;
+			tail = -1;
+		} else {
+			head = (head + 1) % this.array.length;
+			result = this.array[head];
+			elements--;
+		}
+
+		return result;
 	}
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+		if (!isEmpty()) {
+			result = this.array[head];
+		}
+		return result;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.head == -1 && this.tail == -1;
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return ((this.tail + 1) % this.array.length) == head;
 	}
 
 }
