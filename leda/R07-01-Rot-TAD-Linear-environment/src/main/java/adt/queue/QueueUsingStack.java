@@ -2,6 +2,8 @@ package adt.queue;
 
 import adt.stack.Stack;
 import adt.stack.StackImpl;
+import adt.stack.StackOverflowException;
+import adt.stack.StackUnderflowException;
 
 public class QueueUsingStack<T> implements Queue<T> {
 
@@ -15,32 +17,69 @@ public class QueueUsingStack<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isFull()) {
+			throw new QueueOverflowException();
+		}
+
+		try {
+			stack1.push(element);
+		} catch (StackOverflowException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isEmpty()) {
+			throw new QueueUnderflowException();
+		}
+
+		T result = null;
+
+		stackToAnother(stack1, stack2);
+		try {
+			result = stack2.pop();
+		} catch (StackUnderflowException e) {
+			e.printStackTrace();
+		}
+		stackToAnother(stack2, stack1);
+		
+		return result;
 	}
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+
+		stackToAnother(stack1, stack2);
+		result = stack2.top();
+		stackToAnother(stack2, stack1);
+
+		return result;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return stack1.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return stack1.isFull();
+	}
+
+	// To be implemented!!!!!!!
+	private void stackToAnother(Stack<T> source, Stack<T> target) {
+		try {
+			while (!source.isEmpty()) {
+				target.push(source.pop());
+			}
+
+		} catch (StackOverflowException e) {
+			e.printStackTrace();
+		} catch (StackUnderflowException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
