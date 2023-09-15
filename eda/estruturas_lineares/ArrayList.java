@@ -1,6 +1,4 @@
-package estruturas_lineares;
-
-public class ArrayList {
+class ArrayList {
     
     private int[] arr;
     private static int CAPACIDADE_DEFAULT = 10;

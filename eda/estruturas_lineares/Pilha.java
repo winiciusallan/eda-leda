@@ -1,5 +1,3 @@
-package estruturas_lineares;
-
 class Pilha {
 
     private int[] pilha;

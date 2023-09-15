@@ -1,4 +1,3 @@
-package estruturas_lineares;
 import java.util.Scanner;
 
 class InvertePilhaIndex {
@@ -30,6 +29,7 @@ class InvertePilhaIndex {
             result.push(aux.pop());
         }
 
+        input.close();
         printArray(result);
     }
 
