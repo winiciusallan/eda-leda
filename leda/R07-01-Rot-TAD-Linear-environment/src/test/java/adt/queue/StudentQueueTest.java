@@ -32,10 +32,10 @@ public class StudentQueueTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = new QueueUsingStack<>(10);
-		queue2 = new QueueImpl<>(2);
-		queue3 = new QueueImpl<>(5);
-		emptyQueue = new QueueImpl<>(0);
+		queue1 = new QueueUsingStack<>(6);
+		queue2 = new QueueUsingStack<>(2);
+		queue3 = new QueueUsingStack<>(5);
+		emptyQueue = new QueueUsingStack<>(0);
 	}
 
 	// MÉTODOS DE TESTE
@@ -48,6 +48,23 @@ public class StudentQueueTest {
 	public void testIsEmpty() {
 		assertFalse(queue1.isEmpty());
 		assertTrue(queue3.isEmpty());
+	}
+
+	@Test
+	public void testIsFullCircular() throws QueueOverflowException, QueueUnderflowException {
+		assertTrue(queue2.isFull());
+
+		queue1.enqueue(4);
+		queue1.enqueue(3);
+		queue1.enqueue(9);
+		Integer a = queue1.dequeue();
+		a = queue1.dequeue();
+
+		queue1.enqueue(6);
+		queue1.enqueue(2);
+
+		assertTrue(queue1.isFull());
+		assertEquals(3, (int) queue1.head());;
 	}
 
 	@Test
@@ -81,6 +98,15 @@ public class StudentQueueTest {
 		}
 	}
 
+	@Test
+	public void testDequeueNull() {
+		try {
+			assertEquals(null, emptyQueue.dequeue());
+		} catch (QueueUnderflowException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Test(expected = QueueUnderflowException.class)
 	public void testDequeueComErro() throws QueueUnderflowException {
 		assertEquals(new Integer(1), emptyQueue.dequeue()); // vai depender do
@@ -95,7 +121,9 @@ public class StudentQueueTest {
 
 	@Test
 	public void testDequeueWithShift() throws QueueUnderflowException {
-		Integer v = queue1.dequeue();
-		assertEquals(2, (int) queue1.head());
+		if (queue1 instanceof QueueImpl) {
+			Integer v = queue1.dequeue();
+			assertEquals(2, (int) queue1.head());
+		}
 	}
 }

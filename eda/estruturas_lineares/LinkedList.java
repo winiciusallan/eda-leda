@@ -96,11 +96,35 @@ public class LinkedList {
     public boolean isEmpty() {
         return this.head == null;
     }
+
+    public int remove(int index) {
+        return 0;
+    }
+
+    public int removeFirst() {
+        return 0;
+    }
+
+    public int removeLast() {
+
+        int result = this.tail.v;
+        if (this.head.next == null) { // Caso a lista só tenha um elemento.
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        }
+
+        size--;
+        return result;
+    }
 }
 
 class Node {
     
     public Node next;
+    public Node prev;
     public int v;
 
     public Node(int v) {

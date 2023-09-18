@@ -41,11 +41,11 @@ public class CircularQueue<T> implements Queue<T> {
 
 		if (head == tail) {
 			result = this.array[head];
-			head = -1;
-			tail = -1;
+			this.head = -1;
+			this.tail = -1;
 		} else {
-			head = (head + 1) % this.array.length;
 			result = this.array[head];
+			head = (head + 1) % this.array.length;
 			elements--;
 		}
 
