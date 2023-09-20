@@ -9,11 +9,13 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
+	public RecursiveSingleLinkedListImpl() {
+
+	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.data == null; 
 	}
 
 	@Override
@@ -24,14 +26,32 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+		if (!isEmpty() && element != null) {
+			if (this.data.equals(element)) {
+				result = element;
+			} else {
+				result = this.next.search(element);
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		// Refatorar esse código.
+		if (element != null) {
+			if (isEmpty()) {
+				this.data = element;
+				this.next = new RecursiveSingleLinkedListImpl<>();
+			} else {
+				if (this.next.data == null) {
+					this.next = new RecursiveSingleLinkedListImpl<>();
+				}
+				this.next.insert(element);
+			}
+		}
 	}
 
 	@Override
