@@ -9,10 +9,6 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
-	public RecursiveSingleLinkedListImpl() {
-
-	}
-
 	@Override
 	public boolean isEmpty() {
 		return this.data == null; 
@@ -20,15 +16,25 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return size(0);
+	}
+
+	private int size(int sum) { // Método privado para ser usado recursivamente.
+		int result = sum;
+		if (this.data == null) {
+			result = 0;
+		} else {
+			result = 1 + this.next.size(sum);
+		}
+
+		return result;
 	}
 
 	@Override
 	public T search(T element) {
 		T result = null;
 		if (!isEmpty() && element != null) {
-			if (this.data.equals(element)) {
+			if (this.getData().equals(element)) {
 				result = element;
 			} else {
 				result = this.next.search(element);
@@ -42,13 +48,10 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	public void insert(T element) {
 		// Refatorar esse código.
 		if (element != null) {
-			if (isEmpty()) {
+			if (this.data == null) { // Se for um ˜nó de lista˜ vázio.
 				this.data = element;
 				this.next = new RecursiveSingleLinkedListImpl<>();
 			} else {
-				if (this.next.data == null) {
-					this.next = new RecursiveSingleLinkedListImpl<>();
-				}
 				this.next.insert(element);
 			}
 		}
@@ -56,14 +59,34 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (element != null && !isEmpty()) {
+			if (size() == 1) {
+				this.data = null;
+				this.next = null;
+			} else {
+				if (this.next.data.equals(element)) {
+					this.next.data = null;
+					this.next = this.next.next;
+				} else {
+					this.next.remove(element);
+				}
+			}
+		}
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T[] result = (T[]) new Object[size()];
+		toArray(result, 0);
+		return result;
+	}
+
+	// Método para ser usado recursivamente.
+	private void toArray(T[] arr, int i) {
+		if (this.data != null) { // Enquanto não for vazio vai colocando na lista.
+			arr[i] = this.data;
+			this.next.toArray(arr, ++i);
+		}
 	}
 
 	public T getData() {
