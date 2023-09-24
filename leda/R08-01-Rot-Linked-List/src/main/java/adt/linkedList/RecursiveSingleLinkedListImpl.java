@@ -48,7 +48,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	public void insert(T element) {
 		// Refatorar esse código.
 		if (element != null) {
-			if (this.data == null) { // Se for um ˜nó de lista˜ vázio.
+			if (this.data == null) { // Se for um ˜nó de lista˜ vazio.
 				this.data = element;
 				this.next = new RecursiveSingleLinkedListImpl<>();
 			} else {
@@ -60,16 +60,11 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			if (size() == 1) {
-				this.data = null;
-				this.next = null;
+			if (this.next.data.equals(element)) {
+				this.next.data = getNext().getData();
+				this.next = this.next.getNext();
 			} else {
-				if (this.next.data.equals(element)) {
-					this.next.data = null;
-					this.next = this.next.next;
-				} else {
-					this.next.remove(element);
-				}
+				this.next.remove(element);
 			}
 		}
 	}
