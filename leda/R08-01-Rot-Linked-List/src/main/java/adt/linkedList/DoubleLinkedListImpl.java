@@ -69,8 +69,18 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	@Override
 	public T search(T element) {
-		// To be implemented!!
-		return null;
+		T result = null;
+
+		DoubleLinkedListNode<T> aux = getHead();
+		if (!isEmpty()) {
+			if (aux.getData().equals(element)) {
+				result = aux.getData();
+			} else {
+				aux = (DoubleLinkedListNode<T>) aux.next;
+			}
+		}
+
+		return result;
 	}
 
 	@Override

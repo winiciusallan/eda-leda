@@ -49,15 +49,17 @@ public class RecursiveDoubleLinkedListImpl<T> extends
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			if (this.next.data.equals(element)) {
-				if (this.previous.getData() == null) {
+			if (this.data.equals(element)) {
+				if (this.previous == null || this.previous.getData() == null) {
 					this.removeFirst();
 				} else if (this.next.getData() == null) {
 					this.removeLast();
 				} else {
-					this.next = this.next.getNext();
-					((RecursiveDoubleLinkedListImpl<T>) this.next).setPrevious(this);
+					this.previous.next = this.getNext();
+					((RecursiveDoubleLinkedListImpl<T>) this.next).setPrevious(this.previous);
 				}
+			} else if (this.data != null) {
+				this.next.remove(element);
 			}
 		}
 	}
@@ -67,10 +69,11 @@ public class RecursiveDoubleLinkedListImpl<T> extends
 		if (!isEmpty()) {
 			if (this.previous == null && this.next == null) { // Lista com um elemento apenas.
 				this.data = null;
+			} else {
+				this.data = this.next.getData();
+				((RecursiveDoubleLinkedListImpl<T>) this.next).setPrevious(this);
+				this.next = this.next.getNext();
 			}
-			this.data = this.next.getData();
-			((RecursiveDoubleLinkedListImpl<T>) this.next).setPrevious(this);
-			this.next = this.next.getNext();
 		}
 	}
 
@@ -81,7 +84,7 @@ public class RecursiveDoubleLinkedListImpl<T> extends
 				this.data = null;
 				this.next = null;
 
-				if (this.previous != null && this.previous.data == null```) {
+				if (this.previous != null && this.previous.data == null) {
 					this.previous = null;
 				}
 			} else {

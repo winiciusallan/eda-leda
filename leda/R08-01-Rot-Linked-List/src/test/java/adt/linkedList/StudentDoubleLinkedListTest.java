@@ -1,5 +1,7 @@
 package adt.linkedList;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,6 +87,13 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista2.insert(5);
 		((DoubleLinkedList<Integer>) lista2).removeLast();
 		Assert.assertArrayEquals(new Integer[] { 1 }, lista2.toArray());
+	}
+
+@Test
+	public void testToArrayRemoveElementNotInList() {
+		Assert.assertEquals(3, lista1.size());
+		lista1.remove(4);
+		assertArrayEquals(new Integer[] { 3, 2, 1}, lista2.toArray());
 	}
 
 	@Test

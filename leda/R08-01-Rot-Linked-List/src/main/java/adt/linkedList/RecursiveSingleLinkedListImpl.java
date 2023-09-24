@@ -60,8 +60,8 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			if (this.next.data.equals(element)) {
-				this.next.data = getNext().getData();
+			if (this.data.equals(element)) {
+				this.data = getNext().getData();
 				this.next = this.next.getNext();
 			} else {
 				this.next.remove(element);

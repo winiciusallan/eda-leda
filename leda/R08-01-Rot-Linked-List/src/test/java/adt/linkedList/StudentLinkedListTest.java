@@ -93,6 +93,13 @@ public class StudentLinkedListTest {
 	}
 
 	@Test
+	public void testToArrayRemoveElementNotInList() {
+		Assert.assertEquals(3, lista1.size());
+		lista1.remove(4);
+		assertArrayEquals(new Integer[] { 3, 2, 1}, lista2.toArray());
+	}
+
+	@Test
 	public void testToArray() {
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista1.toArray());
