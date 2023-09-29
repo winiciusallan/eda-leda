@@ -1,6 +1,55 @@
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
-public class LinkedList {
+class TrimLinkedList {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int[] entrada = converteEntrada(input.nextLine().split(" "));
+        LinkedList list = new LinkedList();
+
+        for (int i = 0; i < entrada.length; i++) {
+            list.addLast(entrada[i]);
+        }
+
+        int n = input.nextInt();
+        trimLinkedList(list, n);
+
+        if (list.isEmpty()) {
+            System.out.println("vazia");
+        } else {
+            System.out.println(printArray(list.toArray()));
+        }
+
+        input.close();
+    }
+
+    public static void trimLinkedList(LinkedList list, int n) {
+        for (int i = 0; i < n; i++) {
+            list.removeFirst();
+            list.removeLast();
+        }
+    }
+
+    public static int[] converteEntrada(String[] v) {
+        int[] output = new int[v.length];
+        for (int i = 0; i < v.length; i++) {
+          output[i] = Integer.parseInt(v[i]);
+        }
+        return output;
+    }
+
+    private static String printArray(int[] v) {
+        String output = "";
+        for (int num : v) {
+            output += num + " ";
+        }
+        return output.trim();
+    }
+}
+
+class LinkedList {
 
     private Node head;
     private Node tail;
@@ -180,16 +229,18 @@ public class LinkedList {
 
         return arr;
     }
-}
 
-class Node {
+    class Node {
     
-    public Node next;
-    public Node prev;
-    public int v;
+        public Node next;
+        public Node prev;
+        public int v;
 
-    public Node(int v) {
-        this.v = v;
-        this.next = null;
-    }
+        public Node(int v) {
+            this.v = v;
+            this.next = null;
+        }
+    }   
 }
+
+

@@ -1,6 +1,44 @@
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
-public class LinkedList {
+class RemoveIndexLinkedList {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int[] entrada = converteEntrada(input.nextLine().split(" "));
+        LinkedList list = new LinkedList();
+
+        for (int i = 0; i < entrada.length; i++) {
+            list.addLast(entrada[i]);
+        }
+
+        int n = input.nextInt();
+        list.remove(n);
+
+        System.out.println(printArray(list.toArray()));
+
+        input.close();
+    }
+
+    public static int[] converteEntrada(String[] v) {
+        int[] output = new int[v.length];
+        for (int i = 0; i < v.length; i++) {
+          output[i] = Integer.parseInt(v[i]);
+        }
+        return output;
+    }
+    
+    private static String printArray(int[] v) {
+        String output = "";
+        for (int num : v) {
+            output += num + " ";
+        }
+        return output.trim();
+    }
+}
+
+class LinkedList {
 
     private Node head;
     private Node tail;

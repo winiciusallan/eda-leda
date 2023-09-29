@@ -1,6 +1,59 @@
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
-public class LinkedList {
+class FiltraLinkedList {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int[] entrada = converteEntrada(input.nextLine().split(" "));
+        LinkedList list = new LinkedList();
+
+        for (int i = 0; i < entrada.length; i++) {
+            list.addLast(entrada[i]);
+        }
+
+        int num = input.nextInt();
+        removeRepetead(list, num);
+
+        if (list.isEmpty()) {
+            System.out.println("vazia");
+        } else {
+            System.out.println(printArray(list.toArray())); 
+        }
+
+        input.close();
+    }
+
+    public static void removeRepetead(LinkedList lista, int num) {
+        Node aux = lista.getTail();
+        
+        for (int i = lista.getSize() - 1; i >= 0; i--) {
+            if (aux.v == num) {
+                lista.remove(i);
+            }
+            aux = aux.prev;
+        }
+    }
+
+    public static int[] converteEntrada(String[] v) {
+        int[] output = new int[v.length];
+        for (int i = 0; i < v.length; i++) {
+          output[i] = Integer.parseInt(v[i]);
+        }
+        return output;
+    }
+
+    private static String printArray(int[] v) {
+        String output = "";
+        for (int num : v) {
+            output += num + " ";
+        }
+        return output.trim();
+    }
+}
+
+class LinkedList {
 
     private Node head;
     private Node tail;
