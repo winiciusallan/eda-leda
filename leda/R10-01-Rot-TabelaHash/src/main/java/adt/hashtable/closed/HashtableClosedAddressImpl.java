@@ -81,7 +81,6 @@ public class HashtableClosedAddressImpl<T> extends
 				this.elements++;
 			}
 
-		
 	}
 
 	@Override
@@ -101,10 +100,8 @@ public class HashtableClosedAddressImpl<T> extends
 		T result = null;
 		int hash = ((HashFunctionClosedAddress<T>) hashFunction).hash(element);
 
-		if (this.table[hash] != null) {
-			if (((LinkedList<T>) this.table[hash]).contains(element)) {
-				result = element;
-			}
+		if (this.indexOf(element) != -1) {
+			result = element;
 		}
 
 		return result;
