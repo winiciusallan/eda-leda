@@ -59,7 +59,7 @@ public class HashtableClosedAddressImpl<T> extends
 	int getPrimeAbove(int number) {
 		int result = number;
 
-		while (!Util.isPrime(number)) {
+		while (!Util.isPrime(result)) {
 			result++;
 		}
 
