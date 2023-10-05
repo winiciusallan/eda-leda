@@ -37,16 +37,20 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 			if (!found) {
 				this.table[hash] = element;
 				elements++;
-			}
-
-			
+			}		
 		}
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (element != null) {
+			int index = indexOf(element);
+
+			if (index != -1) { // Elemento existe.
+				table[index] = this.deletedElement;
+				--elements;
+			}
+		}
 	}
 
 	@Override
@@ -76,14 +80,16 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 
 		if (element != null) {
 			int probing = 0;
-			int hash = ((HashFunctionLinearProbing<T>) this.hashFunction).hash(element, probing);
+			
+			while (index == -1 && probing < this.table.length) { // Enquanto não tiver achado o elemento e o probing for menor que a tabela.
+				int hash = ((HashFunctionLinearProbing<T>) this.hashFunction).hash(element, probing);
 
-			while (this.table[hash] != element || probing < this.table.length) {
-				probing++;
+				if (table[hash] != null && table[hash].equals(element)) {
+					index = hash;
+				} else {
+					probing++;
+				}
 			}
-
-			index = hash;
-
 		}
 
 		return index;
