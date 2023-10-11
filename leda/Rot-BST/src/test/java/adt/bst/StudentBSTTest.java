@@ -1,11 +1,12 @@
 package adt.bst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import adt.bst.BSTImpl;
 import adt.bt.BTNode;
 
 public class StudentBSTTest {
@@ -59,7 +60,7 @@ public class StudentBSTTest {
 		assertEquals(new Integer(6), tree.minimum().getData());
 		assertEquals(new Integer(6), tree.maximum().getData());
 
-		tree.insert(23);
+		tree.insert(23);	
 		assertEquals(new Integer(6), tree.minimum().getData());
 		assertEquals(new Integer(23), tree.maximum().getData());
 
@@ -77,15 +78,9 @@ public class StudentBSTTest {
 	}
 
 	@Test
-	public void testMinNull() {
-		// To be implemented
-		fail();
-	}
-
-	@Test
-	public void testMaxNull() {
-		// To be implemented
-		fail();
+	public void testMaxMinNull() {
+		assertEquals(null, tree.minimum());
+		assertEquals(null, tree.minimum());
 	}
 
 	@Test
@@ -137,8 +132,7 @@ public class StudentBSTTest {
 
 	@Test
 	public void testHeightRootNull() {
-		// To be implemented
-		fail();
+		assertEquals(-1, tree.height());
 	}
 
 	@Test
@@ -173,25 +167,32 @@ public class StudentBSTTest {
 
 	@Test
 	public void testSearchNull() {
-		// To be implemented
-		fail();
+		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
+
+		assertEquals(null, tree.search(11).getData());
 	}
 
 	@Test
 	public void testPreOrder() {
-		// To be implemented
-		fail();
+		fillTree();
+
+		assertArrayEquals(new Integer[]{ 6, -34, -40, 5, 2, 0, 23, 9, 12,
+				76, 67, 232 }, tree.preOrder());
 	}
 
 	@Test
 	public void testOrder() {
-		// To be implemented
-		fail();
+		fillTree();
+
+		assertArrayEquals(new Integer[]{ -40, -34, 0, 2, 5, 6, 9, 12, 
+			23, 67, 76, 232 }, tree.order());
 	}
 
 	@Test
 	public void testPostOrder() {
-		// To be implemented
-		fail();
+		fillTree();
+
+		assertArrayEquals(new Integer[]{ -40, 0, 2, 5, -34, 12, 9,
+		67, 232, 76, 23, 6 }, tree.postOrder());
 	}
 }
