@@ -85,27 +85,23 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	 */
 	private void heapify(int position) {
 		if (position >= 0 && position <= index) {
-			int maxIndex = getMaxIndex(index, left(position), right(position));
+			int left = left(position);
+			int right = right(position);
 
+			int maxIndex = position;
+
+			if (left <= this.index && this.comparator.compare(this.heap[left], this.heap[position]) > 0) {
+				maxIndex = left;
+			}
+			if (right <= this.index && this.comparator.compare(this.heap[right], this.heap[maxIndex]) > 0) {
+				maxIndex = right;
+			}
+		
 			if (maxIndex != position) {
 				Util.swap(heap, position, maxIndex);
 				this.heapify(maxIndex);
 			}
 		}
-	}
-
-	private int getMaxIndex(int i, int j, int k) {
-		int max;
-
-		if (i > j && i > k) {
-			max = i;
-		} else if (j > i && j > k) {
-			max = j;
-		} else {
-			max = k;
-		}
-
-		return max;
 	}
 
 	@Override
@@ -126,8 +122,12 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public void buildHeap(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		/* Usando o heapify */
+		this.heap = array.clone();
+		this.index = array.length - 1;
+		for (int i = array.length - 1 / 2; i >= 0; i--) {
+			heapify(i);
+		}
 	}
 
 	@Override
@@ -157,8 +157,25 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T[] heapsort(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (array != null) {
+			buildHeap(array);
+			
+			if (this.comparator.compare(this.heap[0], this.heap[index]) > 0) {
+				for (int i = array.length - 1; i >= 0; i--) {
+					Util.swap(this.heap, 0, i);
+					this.index--;
+					heapify(0);
+				}
+			} else {
+				for (int i = 1; i > array.length; i++) {
+					Util.swap(array, 0, i);
+					this.index--;
+					heapify(0);
+				}
+			}
+		}
+
+		return heap;
 	}
 
 	@Override
