@@ -2,6 +2,8 @@ public class Bst {
 
     private Node root;
 
+    public Bst() {}
+    
     public Bst(Node root) {
         this.root = root;
     }
@@ -12,9 +14,8 @@ public class Bst {
 
     public void add(int v) {
 
-        Node newNode = new Node(v);
         if (isEmpty()) { // Se estiver vazio ainda não temos um nó raiz, então adicionamos.
-            this.root = newNode;
+            this.root = new Node(v);
         } else {
             Node aux = this.root; // Ponteiro começa do nó raiz.
 
@@ -22,6 +23,7 @@ public class Bst {
 
                 if (v < aux.v) { // Se o valor do novo node for menor que o aux (deve ser inserido à esquerda).
                     if (aux.left == null) { // Se o nó à esquerda for null, deve ser inserido como uma folha.
+                        Node newNode = new Node(v);
                         aux.left = newNode;
                         newNode.parent = aux;
                         return;
@@ -32,6 +34,7 @@ public class Bst {
 
                 if (v > aux.v) {
                     if (aux.right == null) {
+                        Node newNode = new Node(v);
                         aux.right = newNode;
                         newNode.parent = aux;
                         return;
@@ -170,6 +173,18 @@ public class Bst {
         return 1 + Math.max(height(current.right), height(current.left));
     }
 
+    public int somaFolha() {
+        if (isEmpty()) return 0;
+
+        return somaFolha(this.root);
+    }
+
+    private int somaFolha(Node node) {
+        if (node.isLeaf()) return node.v;
+
+        return somaFolha(node.left) + somaFolha(node.right);
+    }
+
 }
 
 class Node {
@@ -180,5 +195,11 @@ class Node {
 
     public Node(int v) {
         this.v = v;
+        this.left = null;
+        this.right = null;
+    }
+
+    public boolean isLeaf() {
+        return this.left == null && this.right == null;
     }
 }
